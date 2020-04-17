@@ -1,0 +1,52 @@
+.Container {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: .25rem;
+}
+
+.Outer {
+  border: 0px solid #000000;
+}
+
+.Box {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.Title {
+  text-align: center;
+  font-size: 1.4em;
+  color: #ffffff;
+  background: rgb(220,20,60);
+  background: linear-gradient(90deg, rgba(220,20,60,1) 0%, rgba(249,3,3,0.7791491596638656) 97%);
+  padding: 7px;
+  border-top-left-radius: .25em;
+  border-top-right-radius: .25em;
+}
+
+.Heading {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.Field {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.Counter {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.CasesCounter {
+  color: #f16010;
+}
+
+.DeathCounter {
+  color: #cc071e;
+}

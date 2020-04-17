@@ -1,0 +1,46 @@
+.Tabcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+.Tabcontainer > div {
+  background-color: #ffffff;
+  color: #eeeaea;
+  width: 50%;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+
+
+.TabLinks:focus {
+  outline:0;
+}
+
+.TabLinks {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+}
+
+.TabLinks:hover {
+  color: blueviolet;
+  background-color: #eeeeee;
+}
+
+.TabLinksSelected {
+  display: inline-block;
+  width: 100%;
+  background: rgb(71,108,181);
+  background: linear-gradient(0deg, rgba(71,108,181,1) 0%, rgba(130,161,223,0.927608543417367) 100%);
+  color: #ffffff;
+  
+}
+
