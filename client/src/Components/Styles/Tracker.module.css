@@ -50,3 +50,12 @@
 .DeathCounter {
   color: #cc071e;
 }
+
+
+@media (max-width: 1091px) {
+  .Container {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+}

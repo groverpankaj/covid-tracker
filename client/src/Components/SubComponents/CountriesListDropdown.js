@@ -3,8 +3,8 @@ import React from 'react';
 const CountriesListDropdown = ( {name, countriesList, changeHandle, firstSelected} ) => {
   
   return(
-    <div>
-      <select className="form-control" onChange={changeHandle} value={firstSelected} name={name} style={{fontSize: "1.2em"}}>
+    <div className="containerBox">
+      <select className="form-control" onChange={changeHandle} value={firstSelected} name={name} style={{fontSize: "1.1em", color: "#002e6d"}}>
         {
           countriesList.map( country => {
             return(

@@ -35,7 +35,7 @@ const ChartWorld = (data, field) => {
   // Date 
   let displayDate = '';
   if(data.length > 0) {
-    displayDate = moment(data[0].reportdate).format("MMMM DD, YYYY");
+    displayDate = moment.utc(data[0].reportdate).format("MMMM DD, YYYY");
     displayDate = ' as on ' + displayDate
   }
   
@@ -61,7 +61,7 @@ const ChartWorld = (data, field) => {
         load: function () {
           this.credits.element.onclick = function () {
             window.open(
-              'https://www.who.int/',
+              'https://www.ecdc.europa.eu/',
               '_blank'
             );
           }
@@ -111,8 +111,8 @@ const ChartWorld = (data, field) => {
       }
     ],
     credits: {
-      text: 'Source: WHO',
-      // href: 'https://www.who.int/',
+      text: 'Source: ECDC',
+      // href: 'https://www.ecdc.europa.eu/',
       enabled: true
     }
 

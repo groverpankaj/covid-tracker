@@ -3,6 +3,8 @@ import Axios from 'axios';
 import CountriesListDropdown from './SubComponents/CountriesListDropdown';
 import ChartCompare from './Charts/ChartCompare';
 import Tabs from './SubComponents/SingleLineTabs';
+import CountryCompareStats from '../Components/SubComponents/CountryCompareStats';
+import Source from '../Components/SubComponents/Source';
 
 class Country extends Component {
 
@@ -90,8 +92,8 @@ class Country extends Component {
     return (
       <div className="marginTop">
         <div className="row">
-          <div className="col-md-1"></div>
-          <div className="col-md-4">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-4">
             <CountriesListDropdown
               name="countryNameOne"
               firstSelected={this.state.countryNameOne}
@@ -99,8 +101,8 @@ class Country extends Component {
               changeHandle={this.countriesDropDownChangeHandler}
             />
           </div>
-          <div className="col-md-2 vsFont">Vs</div>
-          <div className="col-md-4">
+          <div className="col-lg-2 vsFont">Vs</div>
+          <div className="col-lg-4">
             <CountriesListDropdown
               name="countryNameTwo"
               firstSelected={this.state.countryNameTwo}
@@ -108,33 +110,55 @@ class Country extends Component {
               changeHandle={this.countriesDropDownChangeHandler}
             />
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-lg-1"></div>
         </div>
+        
 
         <div className="row marginTop">
-          <div className="col-md-1"></div>
-          <div className="col-md-10">
-            <Tabs
-              tabArray = {this.state.tabsArray}
-              selectedTab = {this.state.selectedTab}
-              click={this.tabClickHandler}
-            ></Tabs>
+          <div className="col-lg-2"></div>
+          <div className="col-lg-8">
+            <CountryCompareStats
+              countryDataOne = {this.state.countryDataOne}
+              countryDataTwo = {this.state.countryDataTwo}
+            >
+            </CountryCompareStats>
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-lg-2">
+          </div>
+        </div>  
+
+
+        <div className="row marginTop">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-10">
+            <div className="containerBox">
+              <Tabs
+                tabArray = {this.state.tabsArray}
+                selectedTab = {this.state.selectedTab}
+                click={this.tabClickHandler}
+              ></Tabs>
+            </div>
+          </div>
+          <div className="col-lg-1"></div>
         </div>
+
 
 
         <div className="row">
-          <div className="col-md-1"></div>
-          <div className="col-md-10">
-            <ChartCompare
-              chartDataOne={this.state.countryDataOne}
-              chartDataTwo={this.state.countryDataTwo}
-              field={this.state.selectedTab}
-            />
+          <div className="col-lg-1"></div>
+          <div className="col-lg-10">
+            <div className="containerBox">
+              <ChartCompare
+                chartDataOne={this.state.countryDataOne}
+                chartDataTwo={this.state.countryDataTwo}
+                field={this.state.selectedTab}
+              />
+            </div>
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-lg-1"></div>
         </div>
+
+        <Source></Source>
       </div>
     );
   }

@@ -21,8 +21,9 @@ const TableTopFive = ({ tableData }) => {
           {tableData.map((record, index) => {
             return (
               <tr key={record.country + index} className={Style.RecordText}>
-                <td>{record.country}</td>
-                <td className="text-right">{(record.confirmednewcases).toLocaleString()}</td>
+                
+                <td><span className={Style.Flag}><img src={"https://www.countryflags.io/" + record.alphatwocode +  "/shiny/32.png"}></img></span><span className="align-middle">{record.country}</span></td>
+                <td className="text-right align-middle">{(record.confirmednewcases).toLocaleString()}</td>
               </tr>
             )
           })

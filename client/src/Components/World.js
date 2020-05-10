@@ -2,6 +2,7 @@ import React from "react";
 import Axios from 'axios';
 import ChartWorld from './Charts/ChartWorld';
 import Tabs from './SubComponents/SingleLineTabs';
+import Source from '../Components/SubComponents/Source';
 
 class World extends React.Component {
 
@@ -72,7 +73,10 @@ class World extends React.Component {
           <div className="col-md-1"></div>
         </div>
 
+        <Source></Source>
       </div>
+
+      
     );
   }
 }

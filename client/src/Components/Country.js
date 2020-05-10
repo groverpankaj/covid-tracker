@@ -4,6 +4,9 @@ import CountriesListDropdown from './SubComponents/CountriesListDropdown';
 import TableCountry from './SubComponents/TableCountry';
 import ChartCountry from './Charts/ChartCountry';
 import Tabs from './SubComponents/SingleLineTabs';
+import CountryStats from '../Components/SubComponents/CountryStats';
+import Source from '../Components/SubComponents/Source';
+
 
 class Country extends Component {
 
@@ -75,10 +78,10 @@ class Country extends Component {
   render() {
 
     return (
-      <div className="marginTopBottom">
+      <div className="marginTopBottom responsiveContainer">
         <div className="row">
-          <div className="col-md-4"></div>
-          <div className="col-md-4">
+          <div className="col-lg-3"></div>
+          <div className="col-lg-6">
             <CountriesListDropdown
               name="countryName"
               firstSelected={this.state.countryName}
@@ -86,43 +89,62 @@ class Country extends Component {
               changeHandle={this.countriesDropDownChangeHandler}
             />
           </div>
-          <div className="col-md-4"></div>
+          <div className="col-lg-3"></div>
         </div>
 
+        <div className="row" style={{marginTop: "20px"}}>
+          <div className="col-lg-3"></div>
+          <div className="col-lg-6">
+            <CountryStats
+              countryData = {this.state.countryData}
+            >
+            </CountryStats> 
+           </div>
+           <div className="col-lg-3"></div>
+        </div>     
+
+        
+
         <div className="row marginTop">
-          <div className="col-md-1"></div>
-          <div className="col-md-10">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-10">
+            <div className="containerBox">
             <Tabs
               tabArray = {this.state.tabsArray}
               selectedTab = {this.state.selectedTab}
               click={this.tabClickHandler}
             ></Tabs>
+            </div>
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-lg-1"></div>
           </div>
 
           <div className="row">
 
-            <div className="col-md-1"></div>
-              <div className="col-md-10">
+            <div className="col-lg-1"></div>
+              <div className="col-lg-10">
                 <ChartCountry
                   chartData={this.state.countryData}
                   field={this.state.selectedTab}
                 />
-              <div className="col-md-1"></div>
+              <div className="col-lg-1"></div>
             </div>
 
         </div>
 
         <div className="row marginTopBottom">
-          <div className="col-md-1"></div>
-          <div className="col-md-10 container">
-          <TableCountry 
-            tableData = {this.state.countryData}
-          />
+          <div className="col-lg-1"></div>
+          <div className="col-lg-10">
+            <div className="containerBox">  
+              <TableCountry 
+                tableData = {this.state.countryData}
+              />
+            </div>
           </div>
-          <div className="col-md-1"></div>
+          <div className="col-lg-1"></div>
         </div>  
+
+        <Source></Source>
       </div>
     );
   }

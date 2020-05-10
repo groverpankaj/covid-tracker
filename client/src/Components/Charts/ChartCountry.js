@@ -8,7 +8,7 @@ const ChartCountry = ( {chartData, field} ) => {
     
     let seriesData = [];
     for (let i = chartData.length-1; i >= 0; i--) {
-        let epochTime = moment(chartData[i].reportdate).unix() * 1000;
+        let epochTime = moment.utc(chartData[i].reportdate).unix() * 1000;
         seriesData.push([epochTime, parseInt(chartData[i][field])]);
     }
 
@@ -16,7 +16,7 @@ const ChartCountry = ( {chartData, field} ) => {
     let subTitle = '';
     if(chartData.length > 0) {
         subTitle = parseInt(chartData[0][field]).toLocaleString();
-        subTitle = subTitle + ' cases on ' + moment(chartData[0].reportdate).format("MMMM DD, YYYY");
+        subTitle = subTitle + ' cases on ' + moment.utc(chartData[0].reportdate).format("MMMM DD, YYYY");
     }
 
     // Title , Series Name, Series Type
@@ -122,7 +122,7 @@ const ChartCountry = ( {chartData, field} ) => {
         }
     },
     credits: {
-        text: 'Source: WHO',
+        text: 'Source: ECDC ',
         // href: 'https://www.who.int/',
         enabled: true
     },
@@ -131,7 +131,7 @@ const ChartCountry = ( {chartData, field} ) => {
             load: function() {
                 this.credits.element.onclick = function() {
                     window.open(
-                      'https://www.who.int/',
+                      'https://www.ecdc.europa.eu/',
                       '_blank'
                     );
                  }
@@ -142,7 +142,7 @@ const ChartCountry = ( {chartData, field} ) => {
     }
 
     return (
-        <div>
+        <div className="containerBox">
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}

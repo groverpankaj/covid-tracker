@@ -14,13 +14,13 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
 
     let seriesDataOne = [];
     for (let i = chartDataOne.length-1; i >= 0; i--) {
-        let epochTime = moment(chartDataOne[i].reportdate).unix() * 1000;
+        let epochTime = moment.utc(chartDataOne[i].reportdate).unix() * 1000;
         seriesDataOne.push([epochTime, chartDataOne[i][field]]);
     }
 
     let seriesDataTwo = [];
     for (let i = chartDataTwo.length-1; i >= 0; i--) {
-        let epochTime = moment(chartDataTwo[i].reportdate).unix() * 1000;
+        let epochTime = moment.utc(chartDataTwo[i].reportdate).unix() * 1000;
         seriesDataTwo.push([epochTime, chartDataTwo[i][field]]);
     }
 
@@ -140,7 +140,7 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
         }
     },
     credits: {
-        text: 'WHO',
+        text: 'ECDC ',
         enabled: true
     },
     chart: {
@@ -148,7 +148,7 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
             load: function() {
                 this.credits.element.onclick = function() {
                     window.open(
-                      'https://www.who.int/',
+                      'https://www.ecdc.europa.eu/',
                       '_blank'
                     );
                  }

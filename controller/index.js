@@ -4,7 +4,7 @@ const db = require('../database/index');
 module.exports.control = {
 
   getDateData: (requiredDate, cb) => {
-    let selectQuery = `SELECT * FROM covidwho JOIN countrycodes ON covidwho.country=countrycodes.country  WHERE reportDate='2020-03-25' ORDER BY covidwho.country;`;
+    let selectQuery = `SELECT * FROM covidecdc JOIN countrycodes ON covidecdc.country=countrycodes.country  WHERE reportDate='2020-03-25' ORDER BY covidecdc.country;`;
 
     db.pool.query(selectQuery, (error, response) => {
       if (error) {
@@ -17,7 +17,7 @@ module.exports.control = {
   },
 
   getLatestData: (cb) => {
-    let selectQuery = `SELECT * FROM covidwho JOIN countrycodes ON covidwho.country=countrycodes.country  WHERE reportDate=(SELECT MAX(reportDate) FROM covidwho) ORDER BY covidwho.confirmedcases DESC;`;
+    let selectQuery = `SELECT * FROM covidecdc JOIN countrycodes ON covidecdc.country=countrycodes.country  WHERE reportDate=(SELECT MAX(reportDate) FROM covidecdc) ORDER BY covidecdc.confirmedcases DESC;`;
 
     db.pool.query(selectQuery, (error, response) => {
       if (error) {
@@ -30,7 +30,7 @@ module.exports.control = {
   },
 
   getGlobalData: (cb) => {
-    let selectQuery = `SELECT reportDate, SUM(confirmedcases) as confirmedcases, SUM(confirmednewcases) AS confirmednewcases, SUM(deaths) AS deaths, SUM(newdeaths) AS newdeaths  FROM covidwho GROUP BY reportDate ORDER BY reportDate DESC`;
+    let selectQuery = `SELECT reportDate, SUM(confirmedcases) as confirmedcases, SUM(confirmednewcases) AS confirmednewcases, SUM(deaths) AS deaths, SUM(newdeaths) AS newdeaths  FROM covidecdc GROUP BY reportDate ORDER BY reportDate DESC`;
 
     db.pool.query(selectQuery, (error, response) => {
       if (error) {
@@ -43,7 +43,7 @@ module.exports.control = {
   },
 
   getCountryList: (cb) => {
-    let selectQuery = `SELECT country from covidwho GROUP BY country ORDER BY country`;
+    let selectQuery = `SELECT country from covidecdc GROUP BY country ORDER BY country`;
 
     db.pool.query(selectQuery, (error, response) => {
       if (error) {
@@ -56,7 +56,7 @@ module.exports.control = {
   },
 
   getcountryData: (requiredCountryName, cb) => {
-    let selectQuery = `SELECT * FROM covidWHO WHERE country='${requiredCountryName}' ORDER BY reportDate DESC`;
+    let selectQuery = `SELECT * FROM covidecdc WHERE country='${requiredCountryName}' ORDER BY reportDate DESC`;
   
     db.pool.query(selectQuery, (error, response) => {
       if (error) {

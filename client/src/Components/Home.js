@@ -4,6 +4,7 @@ import Tracker from './SubComponents/Tracker';
 import ChartCountry from './Charts/ChartCountry';
 import Tabs from './SubComponents/TwoByTwoTabs';
 import Source from '../Components/SubComponents/Source';
+import CubeSpinner from '../Components/SubComponents/CubeSpinner';
 import Axios from 'axios';
 
 class Home extends Component {
@@ -70,60 +71,65 @@ class Home extends Component {
       <div>
         
         <div className="row">
-          <div className="col-md-12 text-center" style={{marginTop: "30px", color: "#"}}>
+          <div className="col-lg-12 text-center" style={{marginTop: "30px", color: "#"}}>
             <h1>COVID-19 TRACKER</h1>
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-1"></div>
-          <div className="col-md-4 marginTop"> 
+
+          <div className="col-lg-1"></div>
+         
+          <div className="col-lg-4 marginTop"> 
             <Tracker
                tableData = {this.state.globalData[0]}
                seriesName="WORLD"
             ></Tracker>
           </div>
 
-          <div className="col-md-2"></div>
-          <div className="col-md-4 marginTop"> 
+          <div className="col-lg-2"></div>
+         
+          <div className="col-lg-4 marginTop"> 
             <Tracker
                tableData = {this.sortUSData()}
                seriesName="USA"
             ></Tracker>
           </div>
-          <div className="col-md-1 marginTop"></div>
+          <div className="col-lg-1 marginTop"></div>
 
         </div>
         
 
         <div className="row marginBottom">
-          <div className="col-md-1"></div>
+          <div className="col-lg-1"></div>
 
-          <div className="col-md-4 marginTop">
+          <div className="col-lg-4 marginTop">
               <Tabs
                 tabArray = {this.state.tabsArray}
                 selectedTab = {this.state.selectedTab}
                 click={this.tabClickHandler}
               ></Tabs>
-            <ChartCountry
+              <ChartCountry
                 chartData={this.state.globalData}
                 field={this.state.selectedTab}
               />
-            </div>
+          </div>
 
-            <div className="col-md-2"></div>
+          <div className="col-lg-2"></div>
 
-            <div className="col-md-4 marginTop">
-              <TableTopFive
-                tableData = {this.state.data.sort( (a, b) =>  b.confirmednewcases - a.confirmednewcases ).slice(0,7) }
-                tableClick = {this.tableClickHandler}
-                series="confirmedcases"
-              >
-              </TableTopFive>
-            </div>
-    
-            <div className="col-md-1"></div>
+          <div className="col-lg-4 marginTop">
+            <TableTopFive
+              tableData = {this.state.data.sort( (a, b) =>  b.confirmednewcases - a.confirmednewcases ).slice(0,7) }
+              tableClick = {this.tableClickHandler}
+              series="confirmedcases"
+            >
+            </TableTopFive>
+          </div>
+  
+          <div className="col-lg-1"></div>
         </div>
+
+        <CubeSpinner data={this.state.data}></CubeSpinner>
 
         <Source></Source>
 

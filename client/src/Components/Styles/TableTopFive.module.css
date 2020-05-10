@@ -13,3 +13,18 @@
 .RecordText {
   font-size: 1.1em;
 }
+
+.Flag {
+  height: 32px;
+  width: 32px;
+  margin-top: 0px;
+  padding-right: 10px;
+}
+
+@media (max-width: 1091px) {
+  .Container {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+}
