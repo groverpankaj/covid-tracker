@@ -2,15 +2,18 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import moment from 'moment';
+import formulas from '../SubComponents/formulas';
 
 
-const ChartCountry = ( {chartData, field} ) => {
+const ChartCountry = ( {chartData, field, averageType} ) => {
     
     let seriesData = [];
     for (let i = chartData.length-1; i >= 0; i--) {
         let epochTime = moment.utc(chartData[i].reportdate).unix() * 1000;
         seriesData.push([epochTime, parseInt(chartData[i][field])]);
     }
+
+    seriesData = formulas.movingAverages(seriesData, averageType, 10);
 
     // Sub Title
     let subTitle = '';
@@ -60,12 +63,12 @@ const ChartCountry = ( {chartData, field} ) => {
 
     }
 
-    Highcharts.setOptions({
-        lang: {
-          decimalPoint: '.',
-          thousandsSep: ','
-        }
-      });
+    // Highcharts.setOptions({
+    //     lang: {
+    //       decimalPoint: '.',
+    //       thousandsSep: ','
+    //     }
+    //   });
 
     let options = {
  
@@ -88,7 +91,7 @@ const ChartCountry = ( {chartData, field} ) => {
             title: {
                 text: seriesName,
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    // color: Highcharts.getOptions().colors[0]
                 }
             }
         },

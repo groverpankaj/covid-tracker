@@ -1,35 +1,39 @@
 import React from 'react';
-import Style from '../Styles/CubeSpinner.module.css';
+
+import { CubeChildDiv, SpinContainerBody, SpinContainerHead, SpinContainerImageDiv, SpinContainerImage, SpinContainerHeadline, SpinContainerCount, SpinContainerCountry } from '../Styles/SC_CubeSpinner';
+
 
 const CubeSpinnerFace = ( { record } ) => {
 
   return(
     
-    <div className={Style.SpinContainer}>
+    <CubeChildDiv>
 
-      <div className={Style.SpinContainerHead}>COVID - 19</div>
+      <SpinContainerHead>
+        COVID - 19
+      </SpinContainerHead>
 
-      <div className={Style.SpinContainerBody}>
+      <SpinContainerBody>
 
-        <div className={Style.SpinContainerImageDiv}>
-          <img src="../assets/virus.png"></img>
-        </div>
+        <SpinContainerImageDiv>
+          <SpinContainerImage src="../assets/virus.png"></SpinContainerImage>
+        </SpinContainerImageDiv>
 
-        <div className={Style.SpinContainerHeadline}>
+        <SpinContainerHeadline>
           Confirmed Cases
-        </div>
+        </SpinContainerHeadline>
 
-        <div className={Style.SpinContainerCount}>
+        <SpinContainerCount>
           {(record['confirmedcases']).toLocaleString()}
-        </div> 
+        </SpinContainerCount> 
 
-        <div className={Style.SpinContainerCountry}>
+        <SpinContainerCountry>
           {record['country']}
-        </div>
+        </SpinContainerCountry>
         
-      </div>
+      </SpinContainerBody>
 
-    </div>
+    </CubeChildDiv>
   );
 
 }

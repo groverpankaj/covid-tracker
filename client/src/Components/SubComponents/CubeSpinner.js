@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
-import Style from '../Styles/CubeSpinner.module.css';
 import CubeSpinnerFace from './CubeSpinnerFace';
+import formula from './formulas';
+
+import { RotatingBox, Cube, FrontSide, RightSide } from '../Styles/SC_CubeSpinner';
 
 
 class CubeSpinner extends Component {
 
   state = {
-    spinnerClass: Style.Cube,
+    spinnerClass: false,
     count: 0,
-    data: []
-  }
-
-
-  compare = ( a, b ) => {
-    if ( a.country < b.country ){
-      return -1;  
-    }
-    if ( a.country > b.country ){
-      return 1;   
-    }
-    return 0;
+    data: [],
+    cubeBottomPos: 15
   }
 
 
   componentDidUpdate(prevProps, prevState) {
 
     if(this.props !== undefined) {
-
-      
      
       if ( (this.props.data.length !== prevState.data.length)) {
-
-        let sortedByCountry = this.props.data.sort(this.compare ); 
         
+        let sortedByCountry = this.props.data.slice().sort(formula.sortCountryDesc); 
         this.setState({
           data: sortedByCountry
         },
@@ -43,20 +32,37 @@ class CubeSpinner extends Component {
         )
       }
     }
+
  }
 
   componentDidMount() {
-    // console.log(this.props);
-    // this.startRotation();
+    // Cube Fixed position bottom to prevent cube over footer
+    window.addEventListener('scroll', this.listenToScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.listenToScroll)
+  }
+
+  listenToScroll = () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    
+    const scrolled = winScroll / height;
+
+    this.setState({
+      cubeBottomPos: 15 + (scrolled*150)
+    })
   }
 
   
 
   startRotation = () => {
-
+    
     setTimeout(() => {
       this.setState({
-        spinnerClass: [Style.Cube, Style.Move].join(' ')
+        spinnerClass: true
       })
     }, 700);
   }
@@ -71,7 +77,7 @@ class CubeSpinner extends Component {
 
     this.setState({
       count: count,
-      spinnerClass: [Style.Cube].join(' ')
+      spinnerClass: false
     },
      () => this.startRotation()
     )
@@ -92,19 +98,18 @@ class CubeSpinner extends Component {
       
     return(
       
-      <div className={Style.RotatingBox}>
-        <div className={this.state.spinnerClass} id="cube" onAnimationEnd={this.animationHasEnded}>
-
-          <div className={Style.FrontSide} id="front-side">
+      <RotatingBox bottom={this.state.cubeBottomPos}>
+        <Cube id="cube" move={this.state.spinnerClass} onAnimationEnd={this.animationHasEnded}>
+          <FrontSide id="front-side">
             <CubeSpinnerFace record = {record}></CubeSpinnerFace>
-          </div>
+          </FrontSide>
 
-          <div className={Style.RightSide} id="right-side">
-          <CubeSpinnerFace record = {nextRecord}></CubeSpinnerFace>
-          </div>
+          <RightSide id="right-side">
+            <CubeSpinnerFace record = {nextRecord}></CubeSpinnerFace>
+          </RightSide>
 
-        </div>
-      </div>
+        </Cube>
+      </RotatingBox>
 
     );
     } else {

@@ -56,8 +56,8 @@ module.exports.control = {
   },
 
   getcountryData: (requiredCountryName, cb) => {
-    let selectQuery = `SELECT * FROM covidecdc WHERE country='${requiredCountryName}' ORDER BY reportDate DESC`;
-  
+    let selectQuery = `SELECT * FROM covidecdc WHERE LOWER(country)= LOWER('${requiredCountryName}') ORDER BY reportDate DESC`;
+    console.log(selectQuery)
     db.pool.query(selectQuery, (error, response) => {
       if (error) {
         cb('error', null)

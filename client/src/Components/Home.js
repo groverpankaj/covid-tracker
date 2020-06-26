@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import TableTopFive from './SubComponents/TableTopFive';
 import Tracker from './SubComponents/Tracker';
 import ChartCountry from './Charts/ChartCountry';
-import Tabs from './SubComponents/TwoByTwoTabs';
+import Tabs from './SubComponents/GraphTabs';
+import AverageRadioBtn from '../Components/SubComponents/AverageRadioBtn';
+import Footer from '../Components/SubComponents/Footer';
+
 import Source from '../Components/SubComponents/Source';
 import CubeSpinner from '../Components/SubComponents/CubeSpinner';
 import Axios from 'axios';
+import formula from '../Components/SubComponents/formulas';
 
 class Home extends Component {
   
   state = {
-    data: this.props.latestData, // latest day data
+    data: [], // latest day data
     globalData: [],
     tabsArray : [
       {value: "Confirmed Cases", name: "confirmedcases"},
@@ -18,11 +22,27 @@ class Home extends Component {
       {value: "Deaths", name: "deaths"},
       {value: "Daily Deaths", name: "newdeaths"}
     ],
-    selectedTab: "confirmedcases"
+    selectedTab: "confirmednewcases",
+    averageType: "ema"
   }
 
 
   componentDidMount() {
+
+    Axios({
+      method: 'GET',
+      url: '/latestdata',
+    })
+      .then(response => {
+        this.setState({
+          data: response.data.rows
+        }
+          // , () => console.log(this.state)
+        )
+      })
+      .catch(() => console.log('Error fetching latest data'));
+
+
     Axios({
       method: 'GET',
       url: '/globaldata',
@@ -62,6 +82,20 @@ class Home extends Component {
   tabClickHandler = event => {
     this.setState({
       selectedTab: event.target.getAttribute("name")
+    })
+  }
+
+  topFiveClickHandler = nameOfCountry => {
+    let urlOfCountry = formula.countryNameToUrl(nameOfCountry);
+    // So that country page can get the country name
+    window.__INITIAL_DATA__ = nameOfCountry;
+    // Navigate to another page
+    this.props.history.push(`/country/${urlOfCountry}`);
+  }
+
+  radioSelectHandler = event => {
+    this.setState({
+      averageType: event.target.value
     })
   }
 
@@ -107,21 +141,34 @@ class Home extends Component {
               <Tabs
                 tabArray = {this.state.tabsArray}
                 selectedTab = {this.state.selectedTab}
-                click={this.tabClickHandler}
+                clickHandle={this.tabClickHandler}
+                smallOrNot={true}
               ></Tabs>
               <ChartCountry
                 chartData={this.state.globalData}
                 field={this.state.selectedTab}
+                averageType={this.state.averageType}
               />
+              <div>
+                {(this.state.selectedTab === 'confirmednewcases' || this.state.selectedTab === 'newdeaths')
+                  ?
+                    <AverageRadioBtn
+                      clickHandle={this.radioSelectHandler}
+                      selected={this.state.averageType}
+                    ></AverageRadioBtn>
+                  :
+                    null
+                  }
+              </div>
           </div>
 
           <div className="col-lg-2"></div>
 
           <div className="col-lg-4 marginTop">
             <TableTopFive
-              tableData = {this.state.data.sort( (a, b) =>  b.confirmednewcases - a.confirmednewcases ).slice(0,7) }
-              tableClick = {this.tableClickHandler}
+              tableData = {formula.sortCases(this.state.data)}
               series="confirmedcases"
+              clickHandle={this.topFiveClickHandler}
             >
             </TableTopFive>
           </div>
@@ -132,7 +179,7 @@ class Home extends Component {
         <CubeSpinner data={this.state.data}></CubeSpinner>
 
         <Source></Source>
-
+        <Footer></Footer>          
       </div>
     );
   }

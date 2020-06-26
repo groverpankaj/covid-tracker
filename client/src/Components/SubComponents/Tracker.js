@@ -1,33 +1,37 @@
 import React from 'react';
 
-import Style from '../Styles/Tracker.module.css';
+import { Title, Heading, Box, Field, CounterDiv }  from '../Styles/SC_Tracker';
 import Counter from './Counter';
-
+ 
 
 
 const Tracker = ( { tableData, seriesName } ) => {
   
   return(
 
-    <div className={Style.Container}> 
+    <div className="containerBox"> 
 
-      <div className={Style.Title}>
+      <Title>
         COVID-19 PANDEMIC
-      </div>
+      </Title>
 
-      <div className={Style.Heading}>
+      <Heading>
         {seriesName}
-      </div>  
+      </Heading>  
 
-      <div className={Style.Box}>
-        <div className={Style.Field}>Cases</div>
-        <div className={[Style.CasesCounter, Style.Counter].join(" ")}>{(tableData) ? <Counter start={0} end={tableData.confirmedcases}  delay={0} /> : ''}</div>
-      </div>
+      <Box>
+        <Field>Cases</Field>
+        <CounterDiv selected="cases">
+          {(tableData) ? <Counter start={0} end={tableData.confirmedcases}  delay={0} /> : ''}
+        </CounterDiv>
+      </Box>
 
-      <div className={Style.Box}>
-        <div className={Style.Field}>Deaths</div>
-        <div className={[Style.DeathCounter, Style.Counter].join(" ")}>{(tableData) ? <Counter start={0} end={tableData.deaths}  delay={0} /> : ''}</div>
-      </div>
+      <Box>
+        <Field>Deaths</Field>
+        <CounterDiv selected="death">
+          {(tableData) ? <Counter start={0} end={tableData.deaths}  delay={0} /> : ''}
+        </CounterDiv>
+      </Box>
 
     </div>
   );

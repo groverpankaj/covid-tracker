@@ -1,13 +1,14 @@
 import React from "react";
 import Axios from 'axios';
 import ChartWorld from './Charts/ChartWorld';
-import Tabs from './SubComponents/SingleLineTabs';
+import Tabs from './SubComponents/GraphTabs';
 import Source from '../Components/SubComponents/Source';
+import Footer from '../Components/SubComponents/Footer';
 
 class World extends React.Component {
 
   state = {
-    data: this.props.latestData,
+    data: [],
     tabsArray : [
       {value: "Confirmed Cases", name: "confirmedcases"},
       {value: "Deaths", name: "deaths"},
@@ -19,27 +20,22 @@ class World extends React.Component {
 
 
   componentDidMount() {
-    // this.fetchWorldData();
-    ChartWorld(this.state.data, this.state.selectedTab);
+    this.fetchWorldData();
   }
 
   fetchWorldData = () => {
-    // Axios({
-    //   method: 'GET',
-    //   url: '/data',
-    //   params: {
-    //     reqDate: '2020-03-24'
-    //   }
-    // })
-    //   .then(response => {
-    //     this.setState({
-    //       data: response.data.rows
-    //     }
-    //       // Re-render the chart
-    //       , () => ChartWorld(this.state.data, this.state.field)
-    //     )
-    //   })
-    //   .catch(() => console.log('error fetching world data'))
+    Axios({
+      method: 'GET',
+      url: '/latestdata',
+    })
+      .then(response => { 
+        this.setState({
+          data: response.data.rows
+        }
+          , () => ChartWorld(this.state.data, this.state.selectedTab)
+        )
+      })
+      .catch(() => console.log('Error fetching latest data'));
   }
 
 
@@ -61,19 +57,15 @@ class World extends React.Component {
             <Tabs
               tabArray = {this.state.tabsArray}
               selectedTab = {this.state.selectedTab}
-              click={this.tabClickHandler}
+              clickHandle={this.tabClickHandler}
             ></Tabs>
+            <div id="world_map" className="containerBox" style={{ minHeight: '650px' }}></div>
           </div>
           <div className="col-md-1"></div>
         </div>
 
-        <div className="row">
-          <div className="col-md-1"></div>
-          <div className="col-md-10" id="world_map" style={{ minHeight: '650px' }} />
-          <div className="col-md-1"></div>
-        </div>
-
         <Source></Source>
+        <Footer></Footer> 
       </div>
 
       

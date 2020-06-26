@@ -2,15 +2,16 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import moment from 'moment';
+import formulas from '../SubComponents/formulas';
 
-Highcharts.setOptions({
-    lang: {
-      decimalPoint: '.',
-      thousandsSep: ','
-    }
-  });
+// Highcharts.setOptions({
+//     lang: {
+//       decimalPoint: '.',
+//       thousandsSep: ','
+//     }
+//   });
 
-const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
+const ChartCompare = ( {chartDataOne, chartDataTwo, field, averageType} ) => {
 
     let seriesDataOne = [];
     for (let i = chartDataOne.length-1; i >= 0; i--) {
@@ -18,12 +19,15 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
         seriesDataOne.push([epochTime, chartDataOne[i][field]]);
     }
 
+    seriesDataOne = formulas.movingAverages(seriesDataOne, averageType, 10);
+
     let seriesDataTwo = [];
     for (let i = chartDataTwo.length-1; i >= 0; i--) {
         let epochTime = moment.utc(chartDataTwo[i].reportdate).unix() * 1000;
         seriesDataTwo.push([epochTime, chartDataTwo[i][field]]);
     }
 
+    seriesDataTwo = formulas.movingAverages(seriesDataTwo, averageType, 10);
     
     let seriesNameOne = (chartDataOne.length> 0) ? chartDataOne[0].country: ' ';
     let seriesNameTwo = (chartDataTwo.length> 0) ? chartDataTwo[0].country: ' ';
@@ -54,13 +58,13 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
         case 'confirmednewcases':
             titleName = `Confirmed Daily cases`
             seriesName = 'Confirmed Daily Cases';
-            seriesType = 'column';
+            seriesType = 'spline';
             break;
         
         case 'newdeaths':
             titleName = `Daily Deaths`
             seriesName = 'Daily Deaths';
-            seriesType = 'column';
+            seriesType = 'spline';
             break;   
 
     }
@@ -87,7 +91,7 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
             title: {
                 text: seriesName,
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    // color: Highcharts.getOptions().colors[0]
                 }
             }
         },
@@ -155,14 +159,12 @@ const ChartCompare = ( {chartDataOne, chartDataTwo, field} ) => {
             }
         }                
     },
-
-    
-      
+ 
 
     }
 
     return (
-        <div>
+        <div className="containerBox">
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}

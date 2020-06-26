@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import CountriesListDropdown from './SubComponents/CountriesListDropdown';
 import ChartCompare from './Charts/ChartCompare';
-import Tabs from './SubComponents/SingleLineTabs';
+import Tabs from './SubComponents/GraphTabs';
 import CountryCompareStats from '../Components/SubComponents/CountryCompareStats';
+import AverageRadioBtn from '../Components/SubComponents/AverageRadioBtn';
 import Source from '../Components/SubComponents/Source';
+import Footer from '../Components/SubComponents/Footer';
 
 class Country extends Component {
 
@@ -12,7 +14,7 @@ class Country extends Component {
     countriesList: [],
     countryNameOne: 'United States of America',
     countryDataOne: [],
-    countryNameTwo: 'China',
+    countryNameTwo: 'Brazil',
     countryDataTwo: [],
     tabsArray : [
       {value: "Confirmed Cases", name: "confirmedcases"},
@@ -20,7 +22,8 @@ class Country extends Component {
       {value: "Daily Cases", name: "confirmednewcases"},
       {value: "Daily Deaths", name: "newdeaths"}
     ],
-    selectedTab: "confirmedcases"
+    selectedTab: "confirmednewcases",
+    averageType: "ema"
   }
 
   componentDidMount = () => {
@@ -88,6 +91,12 @@ class Country extends Component {
     })
   }
 
+  radioSelectHandler = event => {
+    this.setState({
+      averageType: event.target.value
+    })
+  }
+
   render() {
     return (
       <div className="marginTop">
@@ -131,13 +140,11 @@ class Country extends Component {
         <div className="row marginTop">
           <div className="col-lg-1"></div>
           <div className="col-lg-10">
-            <div className="containerBox">
-              <Tabs
-                tabArray = {this.state.tabsArray}
-                selectedTab = {this.state.selectedTab}
-                click={this.tabClickHandler}
-              ></Tabs>
-            </div>
+            <Tabs
+              tabArray = {this.state.tabsArray}
+              selectedTab = {this.state.selectedTab}
+              clickHandle={this.tabClickHandler}
+            ></Tabs>
           </div>
           <div className="col-lg-1"></div>
         </div>
@@ -147,18 +154,29 @@ class Country extends Component {
         <div className="row">
           <div className="col-lg-1"></div>
           <div className="col-lg-10">
-            <div className="containerBox">
-              <ChartCompare
-                chartDataOne={this.state.countryDataOne}
-                chartDataTwo={this.state.countryDataTwo}
-                field={this.state.selectedTab}
-              />
+            <ChartCompare
+              chartDataOne={this.state.countryDataOne}
+              chartDataTwo={this.state.countryDataTwo}
+              field={this.state.selectedTab}
+              averageType={this.state.averageType}
+            />
+            <div>
+              {(this.state.selectedTab === 'confirmednewcases' || this.state.selectedTab === 'newdeaths')
+                ?
+                  <AverageRadioBtn
+                    clickHandle={this.radioSelectHandler}
+                    selected={this.state.averageType}
+                  ></AverageRadioBtn>
+                :
+                  null
+                }
             </div>
           </div>
           <div className="col-lg-1"></div>
         </div>
 
         <Source></Source>
+        <Footer></Footer> 
       </div>
     );
   }

@@ -33,8 +33,8 @@ const CountryStats = ( {countryDataOne, countryDataTwo} ) => {
             </tr>
             <tr>
               <th>Peak Daily Cases</th>
-              <td>{caseStatOne['peakDate']} ({caseStatOne['peakCase']} No.)</td>
-              <td>{caseStatTwo['peakDate']} ({caseStatTwo['peakCase']} No.)</td>
+              <td>{caseStatOne['peakCase']} <br/>({caseStatOne['peakDate']})</td>
+              <td>{caseStatTwo['peakCase']} <br/>({caseStatTwo['peakDate']})</td>
             </tr>
             <tr>
               <th>Days since last reported case</th>

@@ -1,4 +1,4 @@
-const express = require('express');
+import express  from 'express';
 
 const path = require('path');
 
@@ -7,7 +7,14 @@ const controller = require('../controller/index');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const compression = require('compression')
+const compression = require('compression');
+
+
+import { renderToString } from 'react-dom/server';
+import React from 'react';
+import { matchPath, StaticRouter } from 'react-router-dom';
+import routes from '../client/src/Components/routes';
+import App from '../client/src/Components/App';
 
 const app = express();
 
@@ -29,7 +36,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static('./client/dist'));
 
 app.listen(PORT, () => console.log('Server listening on port: ' + PORT));
 
@@ -107,3 +114,47 @@ app.get('/countrydata', (request, response) => {
 
 
 
+app.get('*', (req, res, next) => {
+
+  
+
+  const activeRoute = routes.find((route) => matchPath(req.url, route)) || {}
+
+  let namePass = "";
+  if (activeRoute.fetchInitialData) {
+    namePass = activeRoute.fetchInitialData(req.url);
+  }
+
+    const context = {namePass};
+
+    const markup = renderToString(
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    )
+    
+    res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Covid 19 Tracker</title>
+          <script src="/bundle.js" defer></script>
+          <script>window.__INITIAL_DATA__="${namePass}"</script>
+          <!-- Global site tag (gtag.js) - Google Analytics -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70724916-3"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'UA-70724916-3');
+          </script>
+          </head>
+        <body>
+          <div id="app">${markup}</div>
+        </body>
+      </html>
+    `)  
+});

@@ -1,0 +1,324 @@
+.Container {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: .25rem;
+}
+
+.HeadRow {
+  background: rgb(71,108,181);
+  background: linear-gradient(0deg, rgba(71,108,181,1) 0%, rgba(130,161,223,0.927608543417367) 100%);
+  color: #ffffff;
+}
+
+.RecordText {
+  font-size: 1.1em;
+}
+
+.Flag {
+  height: 32px;
+  width: 32px;
+  margin-top: 0px;
+  padding-right: 10px;
+}
+
+@media (max-width: 1091px) {
+  .Container {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+}
+.Container {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  border-radius: .25rem;
+}
+
+.Outer {
+  border: 0px solid #000000;
+}
+
+.Box {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.Title {
+  text-align: center;
+  font-size: 1.4em;
+  color: #ffffff;
+  background: rgb(220,20,60);
+  background: linear-gradient(90deg, rgba(220,20,60,1) 0%, rgba(249,3,3,0.7791491596638656) 97%);
+  padding: 7px;
+  border-top-left-radius: .25em;
+  border-top-right-radius: .25em;
+}
+
+.Heading {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.Field {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.Counter {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+
+.CasesCounter {
+  color: #f16010;
+}
+
+.DeathCounter {
+  color: #cc071e;
+}
+
+
+@media (max-width: 1091px) {
+  .Container {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+}
+.Tabcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+.Tabcontainer > div {
+  background-color: #ffffff;
+  color: #eeeaea;
+  width: 50%;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+
+
+.Tabcontainer button:focus {
+  outline:0;
+}
+
+.TabLinks {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+}
+
+.TabLinks:hover {
+  color: blueviolet;
+  background-color: #eeeeee;
+}
+
+.TabLinksSelected {
+  display: inline-block;
+  width: 100%;
+  background: rgb(71,108,181);
+  background: linear-gradient(0deg, rgba(71,108,181,1) 0%, rgba(130,161,223,0.927608543417367) 100%);
+  color: #ffffff;
+  
+}
+
+
+.RotatingBox {
+  width: 120px;
+  height: 90px;
+  margin: 10px auto;
+  perspective: 800px;
+  position: fixed;
+  bottom: 30px;
+  left: 45%;
+}
+
+.Cube {
+  width: 120px;
+  background-color: #ffffff;
+  color: #000000;
+  vertical-align: middle;
+  text-align: center;
+  /* animation: rotate 3s linear; */
+  transform-style: preserve-3d;
+  /* box-shadow: inset 0 0 20px rgba(0,0,0,.2); */
+}
+
+
+.Cube div {
+  position: absolute;
+  width: 120px;
+  height: 80px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.FrontSide {
+  transform: translateZ(60px);
+}
+
+
+.RightSide {
+  transform: rotateY(90deg) translateX(60px);
+  transform-origin: right;
+}
+
+
+@keyframes rotate {
+  0%{transform: rotateY(0)}
+  100%{transform: rotateY(-90deg);}
+}
+
+.Move {
+  animation: rotate 3s linear; 
+  /* animation: rotate .1s linear; */
+}
+
+.SpinContainer {
+  /* display: block; */
+}
+
+.SpinContainerHead {
+  position: relative !important;
+  height: 20px !important;
+  font-size: 10px;
+  color: #fff;
+  font-weight: 500;
+  background-color: #012c50 !important;
+  position: relative;
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 3px;
+}
+
+.SpinContainerBody {
+  position: relative !important;
+ 
+}
+
+.SpinContainerImageDiv {
+  margin-top: -20px;
+  background: none !important;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.SpinContainerImageDiv img {
+  vertical-align: middle;
+  border-style: none;
+  height: 30px;
+  width: 30px;
+}
+
+.SpinContainerHeadline {
+  height: 15px !important;
+  text-align: center;
+  display: block !important;
+  font-size: 9px;
+  color: #012c50;
+  font-weight: 700;
+  margin: 10px 0 0 0;
+}
+
+.SpinContainerCountry {
+  height: 20px !important;
+  text-align: center;
+  display: block !important;
+  font-size: 9px;
+  color: #b03130;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 45px 0 0 0;
+}
+
+.SpinContainerCount {
+  display: block !important;
+  height: 20px !important;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+  margin: 25px 0 0 0;
+}
+
+@media only screen and (max-width: 991px) {
+  .RotatingBox {
+    left: 45%;
+  }
+}
+
+@media only screen and (max-width: 691px) {
+  .RotatingBox {
+    left: 38%;
+  }
+}
+.Tabcontainer {
+  display: flex;
+  align-items: stretch;
+  background-color: #476cb5;
+}
+
+.Tabcontainer > div {
+  background-color: #476cb5;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+
+
+.TabLinks {
+  display: inline-block;
+  width: 100%;
+  color: #ffffff;
+  background: #476cb5;
+  /* border: 1px solid #eeeeee; */
+}
+
+.TabLinks:hover {
+  color: #476cb5;
+  background-color: #eeeeee;
+}
+
+.Tabcontainer button:focus {
+  outline:0;
+}
+
+.TabLinksSelected {
+  display: inline-block;
+  width: 100%;
+  /* padding: 10px; */
+  background-color: #ffffff;
+  color: #476cb5;
+  border: 1px solid #ffffff;
+  border-top: 1px solid #476cb5;
+}
+
+@media only screen and (max-width: 600px) {
+  .Tabcontainer {
+    flex-wrap: wrap;
+  }
+  
+  .Tabcontainer > div {
+    width: 50%;
+  }
+}
+
+

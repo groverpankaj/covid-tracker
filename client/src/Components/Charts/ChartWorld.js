@@ -3,12 +3,12 @@ import mapDataWorld from '@highcharts/map-collection/custom/world.geo.json';
 import moment from "moment";
 
 
-Highcharts.setOptions({
-  lang: {
-    decimalPoint: '.',
-    thousandsSep: ','
-  }
-});
+// Highcharts.setOptions({
+//   lang: {
+//     decimalPoint: '.',
+//     thousandsSep: ','
+//   }
+// });
 
 const ChartWorld = (data, field) => {
   

@@ -1,21 +1,13 @@
-.Container {
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-  border-radius: .25rem;
-}
+import styled, { css } from 'styled-components';
 
-.Outer {
-  border: 0px solid #000000;
-}
-
-.Box {
+export const Box = styled.div`
   display: inline-block;
   width: 50%;
   text-align: center;
   margin-bottom: 10px;
-}
+`;
 
-.Title {
+export const Title = styled.div`
   text-align: center;
   font-size: 1.4em;
   color: #ffffff;
@@ -24,38 +16,27 @@
   padding: 7px;
   border-top-left-radius: .25em;
   border-top-right-radius: .25em;
-}
+`;
 
-.Heading {
+export const Heading = styled.div`
   text-align: center;
   font-size: 1.4em;
   font-weight: bold;
   margin-top: 8px;
-}
+`;
 
-.Field {
+export const Field = styled.div`
   font-size: 1.2em;
   font-weight: 300;
-}
+`;
 
-.Counter {
+export const CounterDiv = styled.div`
   font-size: 1.8em;
   font-weight: bold;
-}
-
-.CasesCounter {
-  color: #f16010;
-}
-
-.DeathCounter {
-  color: #cc071e;
-}
-
-
-@media (max-width: 1091px) {
-  .Container {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-
-}
+  ${props => (props.selected === 'cases') && css`
+    color: #f16010;
+  `};
+  ${props => (props.selected === 'death') && css`
+    color: #cc071e;
+  `};
+`;

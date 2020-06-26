@@ -23,7 +23,7 @@ const CountryStats = ( {countryData} ) => {
             </tr>
             <tr>
               <th>Peak Daily Cases</th>
-              <td>{caseStat['peakDate']} ({caseStat['peakCase']} No.)</td>
+              <td>{caseStat['peakCase']} <br/>({caseStat['peakDate']})</td>
             </tr>
             <tr>
               <th>Days since last reported case</th>
